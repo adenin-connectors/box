@@ -49,7 +49,7 @@ api.convertResponse = function (response) {
   // iterate through each issue and extract id, title, etc. into a new array
   for (let i = 0; i < data.length; i++) {
     let raw = data[i];
-    let item = { id: raw.id, title: raw.name, description: raw.type, link: raw.web_url, raw: raw }
+    let item = { id: raw.id, title: raw.name, description: raw.type, link: `https://app.box.com/${raw.type}/${raw.id}`, raw: raw }
     items.push(item);
   }
 
