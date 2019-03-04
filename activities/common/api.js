@@ -37,24 +37,10 @@ function api(path, opts) {
   }
 
   return got(url, opts).catch(err => {
-
     throw err;
   });
 }
-// convert response from /issues endpoint to 
-api.convertResponse = function (response) {
-  let items = [];
-  let data = response.body.item_collection.entries;
 
-  // iterate through each issue and extract id, title, etc. into a new array
-  for (let i = 0; i < data.length; i++) {
-    let raw = data[i];
-    let item = { id: raw.id, title: raw.name, description: raw.type, link: `https://app.box.com/${raw.type}/${raw.id}`, raw: raw }
-    items.push(item);
-  }
-
-  return { items: items };
-}
 const helpers = [
   'get',
   'post',
