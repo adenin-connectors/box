@@ -57,12 +57,25 @@ api.stream = (url, opts) => apigot(url, Object.assign({}, opts, {
 
 api.initialize = function (activity) {
   _activity = activity;
-}
+};
 
 for (const x of helpers) {
   const method = x.toUpperCase();
   api[x] = (url, opts) => api(url, Object.assign({}, opts, { method }));
   api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
 }
+
+//**maps response data*/
+api.convertResponse = function (entries) {
+  let items = [];
+
+  for (let i = 0; i < entries.length; i++) {
+    let raw = entries[i];
+    let item = { id: raw.id, title: raw.name, description: raw.type, link: `https://app.box.com/${raw.type}/${raw.id}`, raw: raw }
+    items.push(item);
+  }
+
+  return { items: items };
+};
 
 module.exports = api;

@@ -1,0 +1,8 @@
+ServiceName: 'filesandfolders-search'
+InterfaceName: 'items'
+Description: 'Search Files And Folders'
+APIDoc: ''
+Interfaces: 'search,pagination'
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''
