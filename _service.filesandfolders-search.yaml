@@ -2,7 +2,7 @@ ServiceName: 'filesandfolders-search'
 InterfaceName: 'items'
 Description: 'Search Files And Folders'
 APIDoc: ''
-Interfaces: 'search,pagination'
+Interfaces: 'search,pagination,daterange'
 RequiredScopes: ''
 AdditionalParameters:
 Method: ''
