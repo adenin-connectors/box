@@ -8,7 +8,6 @@ module.exports = async function (activity) {
     api.initialize(activity);
 
     var pagination = cfActivity.pagination(activity);
-
     let pageSize = parseInt(pagination.pageSize);
     let offset = (parseInt(pagination.page) - 1) * pageSize;
 

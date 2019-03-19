@@ -1,2 +1,9 @@
+ServiceName: 'filesandfolders'
 InterfaceName: items
 Description: List Of Files And Folders
+APIDoc: ''
+Interfaces: 'pagination'
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''
+

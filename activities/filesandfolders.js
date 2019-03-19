@@ -8,7 +8,12 @@ module.exports = async function (activity) {
 
   try {
     api.initialize(activity);
-    const response = await api('/folders/0');
+
+    var pagination = cfActivity.pagination(activity);
+    let pageSize = parseInt(pagination.pageSize);
+    let offset = (parseInt(pagination.page) - 1) * pageSize;
+
+    const response = await api(`/folders/0?limit=${pageSize}&offset=${offset}`);
 
     if (!cfActivity.isResponseOk(activity, response)) {
       return;
