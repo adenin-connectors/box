@@ -1,13 +1,8 @@
 const api = require('./common/api');
-const logger = require('@adenin/cf-logger');
-const cfActivity = require('@adenin/cf-activity');
 
 module.exports = async function (activity) {
-
   try {
-    api.initialize(activity);
-
-    var pagination = cfActivity.pagination(activity);
+    var pagination = Activity.pagination();
     let pageSize = parseInt(pagination.pageSize);
     let offset = (parseInt(pagination.page) - 1) * pageSize;
 
@@ -18,12 +13,10 @@ module.exports = async function (activity) {
 
     const response = await api(url);
 
-    if (!cfActivity.isResponseOk(activity, response)) {
-      return;
-    }
+    if (Activity.isErrorResponse(response)) return;
 
     activity.Response.Data = api.convertResponse(response.body.entries);
   } catch (error) {
-    cfActivity.handleError(activity, error);
+    Activity.handleError(error);
   }
 };
