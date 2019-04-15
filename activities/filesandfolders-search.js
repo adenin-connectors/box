@@ -7,7 +7,7 @@ module.exports = async function (activity) {
     let offset = (parseInt(pagination.page) - 1) * pageSize;
 
     var dateRange = Activity.dateRange("today");
-
+    dateRange.startDate= new Date(0);
     let url = `/search?query=${activity.Request.Query.query}&offset=${offset}&limit=${pageSize}` +
       `&updated_at_range=${dateRange.startDate.split('.')[0]}-00:00,${dateRange.endDate.split('.')[0]}-00:00`;
 
