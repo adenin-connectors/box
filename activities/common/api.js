@@ -21,7 +21,7 @@ function api(path, opts) {
 
   opts.headers = Object.assign({
     accept: 'application/json',
-    'user-agent': 'adenin Now Assistant Connector, https://www.adenin.com/now-assistant'
+    'user-agent': 'adenin Digital Assistant Connector, https://www.adenin.com/digital-assistant'
   }, opts.headers);
 
   if (opts.token) opts.headers.Authorization = `Bearer ${opts.token}`;
@@ -61,11 +61,11 @@ api.convertResponse = function (entries) {
 
   for (let i = 0; i < entries.length; i++) {
     const raw = entries[i];
-
     const item = {
       id: raw.id,
       title: raw.name,
-      description: raw.type,
+      description: raw.description,
+      type: raw.type,
       link: `https://app.box.com/${raw.type}/${raw.id}`,
       raw: raw
     };

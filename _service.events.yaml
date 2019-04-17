@@ -1,0 +1,9 @@
+ServiceName: 'events'
+InterfaceName: items
+Description: List Of Events
+APIDoc: ''
+Interfaces: 'pagination'
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''
+
