@@ -67,6 +67,7 @@ api.convertResponse = function (entries) {
       description: raw.description,
       type: raw.type,
       link: `https://app.box.com/${raw.type}/${raw.id}`,
+      date: (new Date(raw.modified_at)).toISOString(),
       raw: raw
     };
 
