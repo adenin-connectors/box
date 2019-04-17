@@ -27,6 +27,9 @@ module.exports = async () => {
     const results = (await Promise.all(promises)).map((result) => result.body);
 
     Activity.Response.Data = api.convertResponse(results);
+    Activity.Response.Data.title = T('Recent files on Box.com');
+    Activity.Response.Data.link = 'https://app.box.com/recents';
+    Activity.Response.Data.linkLabel = T('Go to Box Recents');
   } catch (error) {
     Activity.handleError(error);
   }
