@@ -23,15 +23,11 @@ function api(path, opts) {
     'user-agent': 'adenin Now Assistant Connector, https://www.adenin.com/now-assistant'
   }, opts.headers);
 
-  if (opts.token) {
-    opts.headers.Authorization = `Bearer ${opts.token}`;
-  }
+  if (opts.token) opts.headers.Authorization = `Bearer ${opts.token}`;
 
   const url = /^http(s)\:\/\/?/.test(path) && opts.endpoint ? path : opts.endpoint + path;
 
-  if (opts.stream) {
-    return got.stream(url, opts);
-  }
+  if (opts.stream) return got.stream(url, opts);
 
   return got(url, opts).catch((err) => {
     throw err;
@@ -64,11 +60,21 @@ api.convertResponse = function (entries) {
 
   for (let i = 0; i < entries.length; i++) {
     const raw = entries[i];
-    const item = {id: raw.id, title: raw.name, description: raw.type, link: `https://app.box.com/${raw.type}/${raw.id}`, raw: raw};
+    const item = {
+      id: raw.id,
+      title: raw.name,
+      description: raw.description,
+      type: raw.type,
+      link: `https://app.box.com/${raw.type}/${raw.id}`,
+      raw: raw
+    };
+
     items.push(item);
   }
 
-  return {items: items};
+  return {
+    items: items
+  };
 };
 
 module.exports = api;
