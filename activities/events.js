@@ -38,4 +38,4 @@ function convertEventsResponse(entries) {
   }
 
   return { items: items };
-};
+}
