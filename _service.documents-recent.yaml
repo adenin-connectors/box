@@ -1,6 +1,6 @@
-ServiceName: 'events'
+ServiceName: 'documents-recent'
 InterfaceName: items
-Description: List Of Events
+Description: Recent Documents
 APIDoc: ''
 Interfaces: 'pagination'
 RequiredScopes: ''

@@ -12,7 +12,10 @@ module.exports = async function (activity) {
     const response = await api(`/events?limit=${pagination.pageSize}&stream_position=${offset}`);
     if (Activity.isErrorResponse(response)) return;
 
-    activity.Response.Data = convertEventsResponse(response.body.entries);
+    activity.Response.Data = convertRecentDocsResponse(response.body.entries);    
+    Activity.Response.Data.title = T('Recent Files');
+    Activity.Response.Data.link = 'https://app.box.com/recents';
+    Activity.Response.Data.linkLabel = T('Go to Box Recent Files');
 
     if (response.body.next_stream_position) {
       activity.Response.Data._nextpage = response.body.next_stream_position;
@@ -22,7 +25,7 @@ module.exports = async function (activity) {
   }
 };
 //**maps response data*/
-function convertEventsResponse(entries) {
+function convertRecentDocsResponse(entries) {
   let items = [];
 
   for (let i = 0; i < entries.length; i++) {
@@ -31,6 +34,7 @@ function convertEventsResponse(entries) {
       id: raw.event_id,
       title: raw.source.name,
       description: raw.event_type,
+      date: new Date(raw.source.content_modified_at),
       link: `https://app.box.com/${raw.source.type}/${raw.source.id}`,
       raw: raw
     };
