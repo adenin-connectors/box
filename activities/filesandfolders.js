@@ -2,15 +2,17 @@
 
 const api = require('./common/api');
 
-module.exports = async () => {
+module.exports = async (activity) => {
   try {
-    const pagination = Activity.pagination();
+    const pagination = $.pagination(activity);
     const pageSize = parseInt(pagination.pageSize, 10);
     const offset = (parseInt(pagination.page, 10) - 1) * pageSize;
 
+    api.initialize(activity);
+
     const response = await api(`/folders/0?limit=${pageSize}&offset=${offset}`);
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     const entries = response.body.item_collection.entries;
     const promises = [];
@@ -26,11 +28,8 @@ module.exports = async () => {
 
     const results = (await Promise.all(promises)).map((result) => result.body);
 
-    Activity.Response.Data = api.convertResponse(results);
-    Activity.Response.Data.title = T('Recent files on Box.com');
-    Activity.Response.Data.link = 'https://app.box.com/recents';
-    Activity.Response.Data.linkLabel = T('Go to Box Recents');
+    activity.Response.Data = api.convertResponse(results);
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 };
