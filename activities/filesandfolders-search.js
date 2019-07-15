@@ -7,7 +7,7 @@ module.exports = async (activity) => {
     const pagination = $.pagination(activity);
     const pageSize = parseInt(pagination.pageSize, 10);
     const offset = (parseInt(pagination.page, 10) - 1) * pageSize;
-    const dateRange = $.dateRange(activity, 'today');
+    const dateRange = $.dateRange(activity);
 
     dateRange.startDate = new Date(0).toISOString();
 
